@@ -150,3 +150,103 @@ console.log(finalDOM.classList)
 finalDOM.classList.add("nueva-clase") // añade una clase sin alterar las anteriores
 finalDOM.classList.remove("best-practice") // remueve una clase sin alterar las anteriores
 console.log( finalDOM.classList.contains("after-footer") ) // true o false si lo incluye
+
+
+
+// EVENTS
+
+let eventTitleDOM = document.querySelector("#event-title")
+
+// eventTitleDOM.addEventListener("click", () => {
+//   console.log("haciendo click sobre el h1")
+// })
+
+// sección de elemento de DOM
+let buttonPlusDOM = document.querySelector("#increment")
+let buttonMinusDOM = document.querySelector("#decrement")
+let counterDOM = document.querySelector("#counter span")
+let inputDOM = document.querySelector("#name")
+let addButtonDOM = document.querySelector("#add-btn")
+let listDOM = document.querySelector("#output-list")
+let allButtons = document.querySelectorAll(".last-btn")
+
+// sección de funciones
+function changeTitle() {
+  console.log("pasando el ratón sobre el h1")
+  eventTitleDOM.innerText = "Sobre el titulo"
+  eventTitleDOM.style.color = "red"
+  finalDOM.style.color = "green"
+}
+
+function revertTitle() {
+  console.log("saliendo del h1")
+  eventTitleDOM.innerText = "Saliendo del titulo"
+  eventTitleDOM.style.color = "black"
+  finalDOM.style.color = "black"
+}
+
+function addToCounter() {
+  counterDOM.innerText++
+}
+
+function substractFromCounter() {
+  if (counterDOM.innerText > 0) {
+    counterDOM.innerText--
+  }
+}
+
+function addToList() {
+
+  // 1. extraer lo que vamos a agregar
+  // let textToAdd = inputDOM.innerText
+  let textToAdd = inputDOM.value
+  console.log(textToAdd)
+
+  // 2. crear elemento de DOM
+  let newElement = document.createElement("li")
+  newElement.innerText = textToAdd
+  console.log(newElement)
+
+  // 3. agregar el nuevo elemento a la lista
+  listDOM.append(newElement)
+
+}
+
+function deleteButton(event) {
+  console.log("intentando borrar botón")
+  console.log(event.target)
+  // event es todas las caracteristicas de la acción
+  // event.target es el elemento de DOM sobre el cual se ejecuta la acción.
+  // para borrar un elemento de DOM. element.remove()
+  // allButtons[0].remove()
+  // event.target.remove()
+
+  // si quisiera borrar el elemento padre.
+  let parentElement = event.target.parentNode
+  parentElement.remove()
+}
+
+// para segurarnos de que el addeventlistener solo se asignará cuando todo en la pagina web esté correctamente subido.
+
+window.addEventListener("load", () => {
+    // sección de addEventListeners
+  eventTitleDOM.addEventListener("mouseenter", changeTitle)
+  eventTitleDOM.addEventListener("mouseleave", revertTitle)
+  buttonPlusDOM.addEventListener("click", addToCounter)
+  buttonMinusDOM.addEventListener("click", substractFromCounter)
+  addButtonDOM.addEventListener("click", addToList)
+  allButtons.forEach((eachButtonDOM) => {
+    eachButtonDOM.addEventListener("click", deleteButton)
+  })
+
+  // document.addEventListener("keydown", (event) => {
+  //   console.log(event.code)
+  //   if (event.code === "Enter") {
+  //     addToList()
+  //   }
+  // })
+})
+
+
+
+
